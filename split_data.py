@@ -3,7 +3,7 @@ import sys
 import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
-# from utilities.aws import download_from_s3, upload_to_s3
+from utilities.aws import download_from_s3, upload_to_s3
 from utilities.config import input_filename, target, bucket, key
 
 logger = logging.getLogger('split_data')
@@ -89,7 +89,7 @@ def delete_file(filename: str):
 
 
 def main():
-    # download_from_s3(bucket=bucket, key=f'{key}/{input_filename}', dest_pathname=f'data/{input_filename}')
+    download_from_s3(bucket=bucket, key=f'{key}/{input_filename}', dest_pathname=f'data/{input_filename}')
     df = load_data(filename=f'data/{input_filename}')
     train_data, validation_data, test_data, train_label, validation_label, test_label = split_data(df=df,
                                                                                                    label=target,
@@ -100,15 +100,15 @@ def main():
     export_data(df=validation_df, path='data/validation.csv')
     export_data(df=test_data, path='data/test.csv')
     export_data(df=test_label, path='data/test_label.csv')
-    # upload_to_s3(filename='data/train.csv', bucket=bucket, key=f'{key}/train')
-    # upload_to_s3(filename='data/validation.csv', bucket=bucket, key=f'{key}/validation')
-    # upload_to_s3(filename='data/test.csv', bucket=bucket, key=f'{key}/test')
-    # upload_to_s3(filename='data/test_label.csv', bucket=bucket, key=f'{key}/test')
-    # delete_file(filename='data/Churn_Modelling.csv')
-    # delete_file(filename='data/train.csv')
-    # delete_file(filename='data/validation.csv')
-    # delete_file(filename='data/test.csv')
-    # delete_file(filename='data/test_label.csv')
+    upload_to_s3(filename='data/train.csv', bucket=bucket, key=f'{key}/train')
+    upload_to_s3(filename='data/validation.csv', bucket=bucket, key=f'{key}/validation')
+    upload_to_s3(filename='data/test.csv', bucket=bucket, key=f'{key}/test')
+    upload_to_s3(filename='data/test_label.csv', bucket=bucket, key=f'{key}/test')
+    delete_file(filename='data/Churn_Modelling.csv')
+    delete_file(filename='data/train.csv')
+    delete_file(filename='data/validation.csv')
+    delete_file(filename='data/test.csv')
+    delete_file(filename='data/test_label.csv')
     logger.info('El proceso ha finalizado exitosamente')
     return None
 
