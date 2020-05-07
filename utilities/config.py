@@ -17,12 +17,18 @@ feature_columns_names = ['RowNumber', 'CustomerId', 'Surname', 'CreditScore',
 
 label_column = 'Exited'
 
+to_boolean = ['HasCrCard', 'IsActiveMember']
+
 numerical_features = ['CreditScore', 'Age', 'Tenure', 'Balance',
-                      'NumOfProducts', 'HasCrCard', 'IsActiveMember', 'EstimatedSalary']
-categorical_features = ['Geography', 'Gender']
+                      'NumOfProducts', 'EstimatedSalary']
+categorical_features = ['Geography', 'Gender', 'HasCrCard', 'IsActiveMember']
 
 cols_to_modeling = ['CreditScore', 'Geography', 'Gender', 'Age', 'Tenure',
                     'Balance', 'NumOfProducts', 'HasCrCard', 'IsActiveMember', 'EstimatedSalary']
+
+final_features_to_modeling = ['CreditScore', 'Age', 'Tenure', 'Balance', 'NumOfProducts',
+                              'EstimatedSalary', 'Geography_Spain', 'Geography_Germany',
+                              'Gender_Male', 'HasCrCard_False', 'IsActiveMember_False']
 
 # Features - Dtypes
 
@@ -50,4 +56,4 @@ label_column_dtype = {
 
 gender_categories = ['Female', 'Male']
 geography_categories = ['France', 'Spain', 'Germany']
-card_and_member_categories = ['True', 'False']
+card_and_member_categories = [True, False]
