@@ -8,9 +8,10 @@ import numpy as np
 import pandas as pd
 
 from utilities.config import feature_columns_names, label_column, \
-                             feature_columns_dtypes, label_column_dtype
+    feature_columns_dtypes, label_column_dtype, to_boolean, \
+    numerical_features, categorical_features, cols_to_modeling
 from custom_pipeline import ColumnSelector, ConvertDtypes, \
-                            GetDummies, GetDataFrame, OutlierDummies, BooleanTransformation
+    GetDummies, GetDataFrame, BooleanTransformation
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.externals import joblib
 
@@ -35,7 +36,21 @@ if __name__ == '__main__':
                             sep=',', dtype=feature_columns_dtypes.update(label_column_dtype)) for file in input_files]
     data = pd.concat(raw_data)
     # Build Pipeline
-    preprocessor = Pipeline()
+    general_transformations = Pipeline([('boolean', BooleanTransformation(columns=to_boolean)),
+                                        ('dtypes', ConvertDtypes(numerical=numerical_features,
+                                                                 categorical=categorical_features)),
+                                        ('selector', ColumnSelector(columns=cols_to_modeling))])
+
+    numerical_selector = Pipeline([('numerical_selector', ColumnSelector(columns=numerical_features))])
+
+    categorical_transformations = Pipeline([('categorical_selector', ColumnSelector(columns=categorical_features)),
+                                            ('ohe', GetDummies(columns=categorical_features))])
+
+    preprocessor = Pipeline([('general', general_transformations),
+                             ('features', FeatureUnion([
+                                 ('numerical', numerical_selector),
+                                 ('categorical', categorical_transformations)
+                             ]))])
     preprocessor.fit(data)
     joblib.dump(preprocessor, filename=os.path.join(args.model_dir, 'model.joblib'))
     print("The model has been saved!")
