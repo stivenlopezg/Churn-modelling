@@ -60,7 +60,7 @@ def concatenate_data(first_df: pd.DataFrame, second_df: pd.DataFrame) -> pd.Data
     return df
 
 
-def export_data(df: pd.DataFrame, path: str, with_header: bool = True):
+def export_data(df: pd.DataFrame, path: str, with_header: bool = False):
     """
 
     :param df:
@@ -108,7 +108,7 @@ def main():
     # delete_file(filename='data/train.csv')
     # delete_file(filename='data/validation.csv')
     # delete_file(filename='data/test.csv')
-    delete_file(filename='data/test_label.csv')
+    # delete_file(filename='data/test_label.csv')
     logger.info('El proceso ha finalizado exitosamente')
     return None
 
