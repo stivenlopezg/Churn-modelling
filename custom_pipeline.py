@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
-from utilities.config import geography_categories, gender_categories, card_and_member_categories
+from config import geography_categories, gender_categories, card_and_member_categories
 
 
 class BooleanTransformation(BaseEstimator, TransformerMixin):
