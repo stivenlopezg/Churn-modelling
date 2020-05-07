@@ -7,11 +7,11 @@ import json
 import numpy as np
 import pandas as pd
 
-from utilities.config import feature_columns_names, label_column, \
-    feature_columns_dtypes, label_column_dtype, to_boolean, \
-    numerical_features, categorical_features, cols_to_modeling
+from config import feature_columns_names, label_column, \
+                   feature_columns_dtypes, label_column_dtype, to_boolean, \
+                   numerical_features, categorical_features, cols_to_modeling
 from custom_pipeline import ColumnSelector, ConvertDtypes, \
-    GetDummies, GetDataFrame, BooleanTransformation
+                            GetDummies, BooleanTransformation
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.externals import joblib
 
@@ -33,7 +33,7 @@ if __name__ == '__main__':
                          f'the data specification in S3 was incorrectly specified or the role specified\n'
                          f'does not have permission to acces the data.')
     raw_data = [pd.read_csv(file, names=feature_columns_names + [label_column],
-                            sep=',', dtype=feature_columns_dtypes.update(label_column_dtype)) for file in input_files]
+                            sep=';', dtype=feature_columns_dtypes.update(label_column_dtype)) for file in input_files]
     data = pd.concat(raw_data)
     # Build Pipeline
     general_transformations = Pipeline([('boolean', BooleanTransformation(columns=to_boolean)),
