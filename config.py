@@ -5,6 +5,7 @@ target = 'Exited'
 
 # AWS
 
+script_path = 'scikit_preprocessing.py'
 region_name = 'us-east-1'
 bucket = 'banking-data'
 key = 'data'
