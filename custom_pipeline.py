@@ -3,6 +3,22 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from utilities.config import geography_categories, gender_categories, card_and_member_categories
 
 
+class BooleanTransformation(BaseEstimator, TransformerMixin):
+    def __init__(self, columns: list):
+        if not isinstance(columns, list):
+            self.columns = [columns]
+        else:
+            self.columns = columns
+
+    def fit(self, X: pd.DataFrame, y: pd.Series = None):
+        return self
+
+    def transform(self, X: pd.DataFrame):
+        for col in self.columns:
+            X[col] = X[col].apply(lambda x: True if x == 1 else False)
+        return X
+
+
 class ColumnSelector(BaseEstimator, TransformerMixin):
     def __init__(self, columns: list):
         if not isinstance(columns, list):
