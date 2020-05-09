@@ -1,12 +1,21 @@
 import boto3
 import logging
+from config import region_name
 from botocore.exceptions import ClientError
-from utilities.config import region_name
+from utilities.aws_keys import aws_access_key_id, aws_secret_access_key
 
-s3_client = boto3.client('s3', region_name=region_name)
+s3_client = boto3.client('s3', region_name=region_name,
+                         aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
 
 
 def download_from_s3(bucket: str, key: str, dest_pathname: str):
+    """
+
+    :param bucket:
+    :param key:
+    :param dest_pathname:
+    :return:
+    """
     try:
         s3_client.download_file(bucket, key, dest_pathname)
         logging.info('Se han descargado los datos desde S3 correctamente.')
@@ -18,6 +27,14 @@ def download_from_s3(bucket: str, key: str, dest_pathname: str):
 
 
 def upload_to_s3(filename: str, bucket: str, key: str, with_kms: bool = False):
+    """
+
+    :param filename:
+    :param bucket:
+    :param key:
+    :param with_kms:
+    :return:
+    """
     if with_kms:
         try:
             s3_client.upload_file(filename, bucket, key, extra_args={'ServerSideEncryption:': 'aws:kms',
