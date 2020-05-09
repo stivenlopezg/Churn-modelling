@@ -8,7 +8,7 @@ target = 'Exited'
 script_path = 'scikit_preprocessing.py'
 region_name = 'us-east-1'
 bucket = 'banking-data'
-key = 'data'
+key = 'churn-modeling'
 
 # Features
 
@@ -22,6 +22,7 @@ to_boolean = ['HasCrCard', 'IsActiveMember']
 
 numerical_features = ['CreditScore', 'Age', 'Tenure', 'Balance',
                       'NumOfProducts', 'EstimatedSalary']
+
 categorical_features = ['Geography', 'Gender', 'HasCrCard', 'IsActiveMember']
 
 cols_to_modeling = ['CreditScore', 'Geography', 'Gender', 'Age', 'Tenure',
