@@ -17,8 +17,8 @@ logger.addHandler(console_handle)
 
 def load_data(filename: str, **kwargs) -> pd.DataFrame:
     """
-
-    :param filename:
+    Load a csv file as a dataframe
+    :param filename: file name
     :return: pd.DataFrame
     """
     df = pd.read_csv(filename, **kwargs)
@@ -28,10 +28,10 @@ def load_data(filename: str, **kwargs) -> pd.DataFrame:
 
 def split_data(df: pd.DataFrame, label: str, stratify: bool = False):
     """
-
-    :param stratify:
-    :param df:
-    :param label:
+    part the data in training, validation and testing
+    :param stratify: Boolean if stratified sampling is used
+    :param df: datagrame
+    :param label: target variable
     :return:
     """
     target = df.pop(label)
@@ -50,9 +50,9 @@ def split_data(df: pd.DataFrame, label: str, stratify: bool = False):
 
 def concatenate_data(first_df: pd.DataFrame, second_df: pd.DataFrame) -> pd.DataFrame:
     """
-
-    :param first_df:
-    :param second_df:
+    concatenates two dataframes to the right of the first
+    :param first_df: dataframe one
+    :param second_df: dataframe two
     :return:
     """
     df = pd.concat([first_df, second_df], axis=1).reset_index(drop=True)
@@ -62,10 +62,10 @@ def concatenate_data(first_df: pd.DataFrame, second_df: pd.DataFrame) -> pd.Data
 
 def export_data(df: pd.DataFrame, path: str, with_header: bool = False):
     """
-
-    :param df:
-    :param path:
-    :param with_header:
+    export a dataframe to a csv file
+    :param df: dataframe
+    :param path: path where it is saved
+    :param with_header: with heading
     :return:
     """
     logger.info('El archivo se ha exportado como un csv satisfactoriamente.')
@@ -77,8 +77,8 @@ def export_data(df: pd.DataFrame, path: str, with_header: bool = False):
 
 def delete_file(filename: str):
     """
-
-    :param filename:
+    Delete a file if it exists
+    :param filename: file name
     :return:
     """
     if os.path.exists(filename):
