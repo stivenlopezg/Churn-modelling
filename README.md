@@ -27,7 +27,7 @@ The final model had the following performance metrics:
 
 * Accuracy: 0.8
 
-*Precision: 0.5
+* Precision: 0.5
 
 * Recall: 0.75
 
