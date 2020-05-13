@@ -10,10 +10,10 @@ s3_client = boto3.client('s3', region_name=region_name,
 
 def download_from_s3(bucket: str, key: str, dest_pathname: str):
     """
-
-    :param bucket:
-    :param key:
-    :param dest_pathname:
+    Download from S3 a file that is in a bucket and download it to a specific path
+    :param bucket: bucket
+    :param key: key
+    :param dest_pathname: destination path
     :return:
     """
     try:
@@ -28,11 +28,11 @@ def download_from_s3(bucket: str, key: str, dest_pathname: str):
 
 def upload_to_s3(filename: str, bucket: str, key: str, with_kms: bool = False):
     """
-
-    :param filename:
-    :param bucket:
-    :param key:
-    :param with_kms:
+    Loads data from a specific route to an S3 bucket
+    :param filename: file name
+    :param bucket: bucket
+    :param key: key
+    :param with_kms: Boolean if the file is encrypted with kms
     :return:
     """
     if with_kms:
